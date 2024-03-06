@@ -1,11 +1,9 @@
 package org.example.springproductcatalogue.controllers;
 
+import org.example.springproductcatalogue.dtos.ProductRequestDto;
 import org.example.springproductcatalogue.models.Product;
 import org.example.springproductcatalogue.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * ProductController
@@ -35,10 +33,16 @@ public class ProductController {
      * title:
      * description:
      * price:
+     * category:
+     * imageURL:
      * }
+     * @param request ProductRequestDto
+     * @return Product Object
      */
-    @PostMapping("/products")
-    public void createProduct() {
+    @PostMapping("/products/")
+    public Product createProduct(@RequestBody ProductRequestDto request) {
+
+        return productService.createProduct(request.toProduct());
 
     }
 
@@ -49,7 +53,7 @@ public class ProductController {
      *
      * @param productId - id of the product - positive long integer
      */
-    @GetMapping("products/{id}")
+    @GetMapping("/products/{id}")
     public Product getProductDetails(@PathVariable("id") Long productId) {
 
         return productService.getSingleProduct(productId);

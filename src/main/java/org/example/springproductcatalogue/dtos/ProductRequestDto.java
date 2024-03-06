@@ -6,34 +6,32 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 /**
- * DTO to enable data communication between API calls on FakeStoreAPI.com
+ * DTO to handle POST requests data communications between API calls
  */
 @Getter
 @Setter
-public class FakeStoreProductDto {
+public class ProductRequestDto {
 
-    private Long id;
+    private Long productId;
     private String title;
     private String description;
-    private String category;
     private Double price;
-    private String imageUrl;
+    private String imageURL;
+    private String category;
 
     /**
-     * Map the response product details with the DTO properties
+     * Map the response - product details with the DTO properties
      * @return Product object
      */
     public Product toProduct() {
 
         var product = new Product();
-        product.setId(id);
         product.setTitle(title);
         product.setDescription(description);
         product.setCategory(new Category(null,category));
         product.setPrice(price);
-        product.setImageUrl(imageUrl);
+        product.setImageURL(imageURL);
 
         return product;
     }
-
 }

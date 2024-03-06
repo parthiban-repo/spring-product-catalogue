@@ -1,0 +1,6 @@
+org.example.springproductcatalogue
+org.example.springproductcatalogue.configs
+org.example.springproductcatalogue.controllers
+org.example.springproductcatalogue.dtos
+org.example.springproductcatalogue.models
+org.example.springproductcatalogue.services

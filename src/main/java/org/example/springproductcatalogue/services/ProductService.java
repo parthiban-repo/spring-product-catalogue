@@ -12,10 +12,11 @@ public interface ProductService {
     /**
      * Get details of a product from the datasource
      *
-     * @param productId
+     * @param productId Id of the product
      * @return List &lt;Product&gt; object
      */
     Product getSingleProduct(Long productId);
     List<Product> getAllProducts();
+    Product createProduct(Product product);
 
 }
