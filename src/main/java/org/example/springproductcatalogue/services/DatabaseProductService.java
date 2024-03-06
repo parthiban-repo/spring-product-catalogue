@@ -26,4 +26,9 @@ public class DatabaseProductService implements ProductService {
     public List<Product> getAllProducts() {
         return null;
     }
+
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
 }

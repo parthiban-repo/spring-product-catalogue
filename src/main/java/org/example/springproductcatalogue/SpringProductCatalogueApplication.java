@@ -3,6 +3,9 @@ package org.example.springproductcatalogue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Product Catalogue application build on SpringBoot
+ */
 @SpringBootApplication
 public class SpringProductCatalogueApplication {
 
