@@ -68,7 +68,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts() {
 
         List<Product> products = productService.getAllProducts();
-        return new ResponseEntity<>(products, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     /**
