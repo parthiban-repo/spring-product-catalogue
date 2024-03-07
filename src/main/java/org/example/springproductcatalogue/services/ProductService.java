@@ -23,6 +23,7 @@ public interface ProductService {
      * @return List &lt;Product&gt; object
      */
     List<Product> getAllProducts();
+    Product createProduct(Product product);
 
     /**
      * Get products in a specific category

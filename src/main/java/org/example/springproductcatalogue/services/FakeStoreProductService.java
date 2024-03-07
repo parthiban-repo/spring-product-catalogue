@@ -117,4 +117,29 @@ public class FakeStoreProductService implements ProductService {
         return listProducts;
     }
 
+    /**
+     * Create a new product by calling the FakeStoreApi
+     * @param product &lt;Product&gt; object
+     * @return &lt;Product&gt; object
+     */
+    @Override
+    public Product createProduct(Product product) {
+
+        FakeStoreProductDto productDto = new FakeStoreProductDto();
+        productDto.setTitle(product.getTitle());
+        productDto.setDescription(product.getDescription());
+        productDto.setCategory(product.getCategory().getTitle());
+        productDto.setPrice(product.getPrice());
+        productDto.setImageURL(product.getImageURL());
+
+        FakeStoreProductDto postResponse = restTemplate.postForObject(
+                "https://fakestoreapi.com/products", // API url
+                productDto, // request body
+                FakeStoreProductDto.class // data type of response
+                );
+
+        return postResponse != null ? postResponse.toProduct() : null;
+
+    }
+
 }

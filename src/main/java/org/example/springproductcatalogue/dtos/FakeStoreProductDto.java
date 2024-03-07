@@ -24,7 +24,7 @@ public class FakeStoreProductDto {
      * @return Product object
      */
     public Product toProduct() {
-
+      
         Product product = new Product();
         product.setId(id);
         product.setTitle(title);
