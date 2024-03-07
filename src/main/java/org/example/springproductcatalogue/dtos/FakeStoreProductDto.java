@@ -17,7 +17,7 @@ public class FakeStoreProductDto {
     private String description;
     private String category;
     private Double price;
-    private String imageUrl;
+    private String image;
 
     /**
      * Map the response product details with the DTO properties
@@ -25,13 +25,13 @@ public class FakeStoreProductDto {
      */
     public Product toProduct() {
 
-        var product = new Product();
+        Product product = new Product();
         product.setId(id);
         product.setTitle(title);
         product.setDescription(description);
         product.setCategory(new Category(null,category));
         product.setPrice(price);
-        product.setImageUrl(imageUrl);
+        product.setImageUrl(image);
 
         return product;
     }

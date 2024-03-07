@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Product Catalogue application build on SpringBoot
+ *
+ * @author Parthiban Rajendran
  */
 @SpringBootApplication
 public class SpringProductCatalogueApplication {
