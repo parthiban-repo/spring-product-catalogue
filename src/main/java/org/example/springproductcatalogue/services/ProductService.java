@@ -16,7 +16,29 @@ public interface ProductService {
      * @return List &lt;Product&gt; object
      */
     Product getSingleProduct(Long productId);
+
+    /**
+     * Get all products from the datasource
+     *
+     * @return List &lt;Product&gt; object
+     */
     List<Product> getAllProducts();
+    Product createProduct(Product product);
+
+    /**
+     * Get products in a specific category
+     *
+     * @param categoryTitle Title of the category
+     * @return List &lt;Product&gt; object
+     */
+    List<Product> getProductsInCategory(String categoryTitle);
+
+    /**
+     * Create a new product
+     *
+     * @param product &lt;Product&gt; object
+     * @return &lt;Product&gt; object
+     */
     Product createProduct(Product product);
 
 }

@@ -3,7 +3,11 @@ package org.example.springproductcatalogue.controllers;
 import org.example.springproductcatalogue.dtos.ProductRequestDto;
 import org.example.springproductcatalogue.models.Product;
 import org.example.springproductcatalogue.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
 
 /**
  * ProductController
@@ -30,16 +34,12 @@ public class ProductController {
      * POST /products
      * RequestBody
      * {
-     * title:
-     * description:
-     * price:
-     * category:
-     * imageURL:
+     * title:, description:, price:, category:,image:
      * }
      * @param request ProductRequestDto
      * @return Product Object
      */
-    @PostMapping("/products/")
+    @PostMapping("/products")
     public Product createProduct(@RequestBody ProductRequestDto request) {
 
         return productService.createProduct(request.toProduct());
@@ -49,7 +49,7 @@ public class ProductController {
     /**
      * Controller method to get details of a product
      * GET /products/{id}
-     * Eg. /products/22
+     * E.g. /products/22
      *
      * @param productId - id of the product - positive long integer
      */
@@ -61,9 +61,26 @@ public class ProductController {
 
     /**
      * Controller method to get all products
+     *
+     * @return List&lt;Product&gt;
      */
-    public void getAllProducts() {
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts() {
 
+        List<Product> products = productService.getAllProducts();
+        return new ResponseEntity<>(products, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Controller method to get products in a specific category
+     *
+     * @param categoryTitle - Title of the category
+     * @return List&lt;Product&gt;
+     */
+    @GetMapping("/products/category/{categoryTitle}")
+    public List<Product> getProductsInCategory(@PathVariable("categoryTitle") String categoryTitle) {
+
+        return productService.getProductsInCategory(categoryTitle);
     }
 
     /**

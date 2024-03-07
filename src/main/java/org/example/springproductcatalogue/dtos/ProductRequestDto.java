@@ -12,11 +12,11 @@ import org.example.springproductcatalogue.models.Product;
 @Setter
 public class ProductRequestDto {
 
-    private Long productId;
+    private Long id;
     private String title;
     private String description;
     private Double price;
-    private String imageURL;
+    private String image;
     private String category;
 
     /**
@@ -25,12 +25,13 @@ public class ProductRequestDto {
      */
     public Product toProduct() {
 
-        var product = new Product();
+        Product product = new Product();
+        product.setId(id);
         product.setTitle(title);
         product.setDescription(description);
         product.setCategory(new Category(null,category));
+        product.setImageUrl(image);
         product.setPrice(price);
-        product.setImageURL(imageURL);
 
         return product;
     }

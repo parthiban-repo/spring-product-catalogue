@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 @Primary // annotating as the primary implementation of ProductService
 public class FakeStoreProductService implements ProductService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -24,7 +25,7 @@ public class FakeStoreProductService implements ProductService {
 
     /**
      * Get details of a single product with given productId
-     * @param productId Id of the product - Long positive integer
+     * @param productId ID of the product - Long positive integer
      * @return Product object
      */
     @Override
@@ -32,19 +33,88 @@ public class FakeStoreProductService implements ProductService {
 
         FakeStoreProductDto fakeStoreProduct = restTemplate.getForObject(
                 "https://fakestoreapi.com/products/" + productId, // API url
-                FakeStoreProductDto.class // data ype of the response
+                FakeStoreProductDto.class // data type of the response
                 );
 
         return fakeStoreProduct != null ? fakeStoreProduct.toProduct() : null;
     }
 
     /**
-     * Get all products and their details
+     * Get all products from the datasource
+     *
      * @return List &lt;Product&gt; object
      */
     @Override
     public List<Product> getAllProducts() {
-        return null;
+
+        FakeStoreProductDto[] productsArr = restTemplate.getForObject(
+                "https://fakestoreapi.com/products", // API url
+                FakeStoreProductDto[].class // data type of the response
+        );
+
+        assert productsArr != null;
+        return getProductListFromArray(productsArr);
+    }
+
+    /**
+     * Get products in a specific category
+     *
+     * @param categoryTitle Title of the category
+     * @return List &lt;Product&gt; object
+     */
+    @Override
+    public List<Product> getProductsInCategory(String categoryTitle) {
+
+        FakeStoreProductDto[] productsArr = restTemplate.getForObject(
+                "https://fakestoreapi.com/products/category/" + categoryTitle, // API url
+                FakeStoreProductDto[].class // data type of the response
+        );
+
+        assert productsArr != null;
+        return getProductListFromArray(productsArr);
+    }
+
+    /**
+     * Create a new product by calling the FakeStoreApi
+     *
+     * @param product &lt;Product&gt; object
+     * @return &lt;Product&gt; object
+     */
+    @Override
+    public Product createProduct(Product product) {
+
+        FakeStoreProductDto productDto = new FakeStoreProductDto();
+        productDto.setTitle(product.getTitle());
+        productDto.setDescription(product.getDescription());
+        productDto.setCategory(product.getCategory().getTitle());
+        productDto.setPrice(product.getPrice());
+        productDto.setImage(product.getImageUrl());
+
+        FakeStoreProductDto postResponse = restTemplate.postForObject(
+                "https://fakestoreapi.com/products", // API url
+                productDto, // request body
+                FakeStoreProductDto.class // data type of response
+                );
+
+        return postResponse != null ? postResponse.toProduct() : null;
+
+    }
+
+    //**** Utility methods ****//
+
+    /**
+     * Get list of products from array of product objects
+     *
+     * @param products FakeStoreProductDto[]
+     * @return List &lt;Product&gt; object
+     */
+    private List<Product> getProductListFromArray(FakeStoreProductDto[] products) {
+        List<Product> listProducts = new ArrayList<>();
+        for(FakeStoreProductDto fakeStoreProduct: products) {
+            listProducts.add(fakeStoreProduct.toProduct());
+        }
+
+        return listProducts;
     }
 
     /**

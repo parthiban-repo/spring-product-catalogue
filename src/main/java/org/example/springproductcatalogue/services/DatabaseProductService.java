@@ -10,6 +10,7 @@ public class DatabaseProductService implements ProductService {
 
     /**
      * Get details of a single product with given productId
+     *
      * @param productId - id of the product - Long positive integer
      * @return Product object
      */
@@ -18,12 +19,13 @@ public class DatabaseProductService implements ProductService {
         return null;
     }
 
-    /**
-     * Get all products and their details
-     * @return List &lt;Product&gt; object
-     */
     @Override
     public List<Product> getAllProducts() {
+        return null;
+    }
+
+    @Override
+    public List<Product> getProductsInCategory(String categoryTitle) {
         return null;
     }
 
