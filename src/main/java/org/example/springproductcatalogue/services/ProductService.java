@@ -1,5 +1,6 @@
 package org.example.springproductcatalogue.services;
 
+import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 import java.util.List;
@@ -10,9 +11,16 @@ import java.util.List;
 public interface ProductService {
 
     /**
+     * Get all product categories
+     *
+     * @return List &lt;Category&gt; object
+     */
+    List<Category> getAllCategories();
+
+    /**
      * Get details of a product from the datasource
      *
-     * @param productId Id of the product
+     * @param productId ID of the product
      * @return List &lt;Product&gt; object
      */
     Product getSingleProduct(Long productId);
@@ -23,7 +31,6 @@ public interface ProductService {
      * @return List &lt;Product&gt; object
      */
     List<Product> getAllProducts();
-    Product createProduct(Product product);
 
     /**
      * Get products in a specific category
@@ -40,5 +47,14 @@ public interface ProductService {
      * @return &lt;Product&gt; object
      */
     Product createProduct(Product product);
+
+    /**
+     * Update a product
+     *
+     * @param productId Product ID
+     * @param product &lt;Product&gt; object with updated details
+     * @return &lt;Product&gt; object
+     */
+    Product updateProduct(Long productId, Product product);
 
 }

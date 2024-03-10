@@ -1,9 +1,15 @@
 package org.example.springproductcatalogue.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * Model 'Category'
@@ -13,7 +19,19 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
-    private Long id;
+@Entity
+public class Category extends BaseModel {
     private String title;
+    /*
+    define cardinality
+    mappedBy: specify that this cardinality has been already
+    established in the Product model by the "category" property with 'mappedBy'
+    CascadeType.REMOVE remove the matching rows in the child table
+     */
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
+    private List<Product> products;
+
+    public Category(String categoryTitle) {
+       this.title = categoryTitle;
+    }
 }

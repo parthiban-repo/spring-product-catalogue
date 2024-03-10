@@ -2,6 +2,7 @@ package org.example.springproductcatalogue.controllers;
 
 import org.example.springproductcatalogue.dtos.ProductRequestDto;
 import org.example.springproductcatalogue.models.Product;
+import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +65,7 @@ public class ProductController {
      *
      * @return List&lt;Product&gt;
      */
-    @GetMapping("/products")
+    @GetMapping({"/products","/products/"})
     public ResponseEntity<List<Product>> getAllProducts() {
 
         List<Product> products = productService.getAllProducts();
@@ -84,11 +85,26 @@ public class ProductController {
     }
 
     /**
+     * Controller method to get all categories
+     *
+     * @return List&lt;Category&gt;
+     */
+    @GetMapping({"/products/categories","/products/categories/"})
+    public ResponseEntity<List<Category>> getAllCategories() {
+
+        List<Category> categories = productService.getAllCategories();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+    /**
      * Controller method to update details of a product
      *
      * @param productId - id of the product - positive long integer
      */
-    public void updateProduct(Long productId) {
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@PathVariable("id") Long productId, @RequestBody ProductRequestDto request) {
+
+        return productService.updateProduct(productId,request.toProduct());
 
     }
 

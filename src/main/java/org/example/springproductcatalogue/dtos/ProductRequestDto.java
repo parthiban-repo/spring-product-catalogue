@@ -6,7 +6,7 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 /**
- * DTO to handle POST requests data communications between API calls
+ * DTO to handle Create Product POST/PUT/PATCH request data communications between API calls
  */
 @Getter
 @Setter
@@ -29,7 +29,7 @@ public class ProductRequestDto {
         product.setId(id);
         product.setTitle(title);
         product.setDescription(description);
-        product.setCategory(new Category(null,category));
+        product.setCategory(new Category(category));
         product.setImageUrl(image);
         product.setPrice(price);
 

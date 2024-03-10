@@ -6,12 +6,13 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 /**
- * DTO to enable data communication between API calls on FakeStoreAPI.com
+ * DTO to enable product related data communication between API calls on FakeStoreAPI.com
  */
 @Getter
 @Setter
 public class FakeStoreProductDto {
 
+    // IMPORTANT: property names should match the FakeStoreAPI attribute names
     private Long id;
     private String title;
     private String description;
@@ -29,7 +30,7 @@ public class FakeStoreProductDto {
         product.setId(id);
         product.setTitle(title);
         product.setDescription(description);
-        product.setCategory(new Category(null,category));
+        product.setCategory(new Category(category));
         product.setPrice(price);
         product.setImageUrl(image);
 
