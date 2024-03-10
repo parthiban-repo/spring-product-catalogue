@@ -6,6 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+/**
+ * Service 'DatabaseProductService' implementing ProductService service
+ * Serve all API requests on own database connected to this application
+ */
 @Service
 public class DatabaseProductService implements ProductService {
 
@@ -66,11 +71,22 @@ public class DatabaseProductService implements ProductService {
      * Update a product
      *
      * @param productId Product ID
-     * @param product &lt;Product&gt; object
+     * @param product   &lt;Product&gt; object
      * @return &lt;Product&gt; object
      */
     @Override
-    public Product updateProduct(Long productId,Product product) {
+    public Product updateProduct(Long productId, Product product) {
+        return null;
+    }
+
+    /**
+     * Delete a product
+     *
+     * @param productId Product ID
+     * @return &lt;Product&gt; object
+     */
+    @Override
+    public Product deleteProduct(Long productId) {
         return null;
     }
 }

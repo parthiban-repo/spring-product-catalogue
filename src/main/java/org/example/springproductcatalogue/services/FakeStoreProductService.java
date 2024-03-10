@@ -20,6 +20,10 @@ public class FakeStoreProductService implements ProductService {
 
     private final RestTemplate restTemplate;
 
+    /**
+     * FakeStoreProductService Constructor taking RestTemplate argument
+     * @param restTemplate RestTemplate
+     */
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -38,6 +42,7 @@ public class FakeStoreProductService implements ProductService {
 
         assert categoryArr != null;
         return createCategoryListFromArray(categoryArr);
+
     }
 
     /**
@@ -52,7 +57,7 @@ public class FakeStoreProductService implements ProductService {
         FakeStoreProductDto fakeStoreProduct = restTemplate.getForObject(
                 "https://fakestoreapi.com/products/" + productId, // API url
                 FakeStoreProductDto.class // data type of the response
-                );
+        );
 
         return fakeStoreProduct != null ? fakeStoreProduct.toProduct() : null;
     }
@@ -72,6 +77,7 @@ public class FakeStoreProductService implements ProductService {
 
         assert productsArr != null;
         return createProductListFromArray(productsArr);
+
     }
 
     /**
@@ -112,7 +118,7 @@ public class FakeStoreProductService implements ProductService {
                 "https://fakestoreapi.com/products", // API url
                 productDto, // request body
                 FakeStoreProductDto.class // data type of response
-                );
+        );
 
         return postResponse != null ? postResponse.toProduct() : null;
 
@@ -122,11 +128,10 @@ public class FakeStoreProductService implements ProductService {
      * Update a product with FakeStoreApi
      *
      * @param productId Product ID
-     * @param productId &lt;Product&gt; object
      * @return &lt;Product&gt; object
      */
     @Override
-    public Product updateProduct(Long productId,Product productUpdate) {
+    public Product updateProduct(Long productId, Product productUpdate) {
 
         restTemplate.put(
                 "https://fakestoreapi.com/products/" + productId,
@@ -139,21 +144,38 @@ public class FakeStoreProductService implements ProductService {
         */
         Product product = getSingleProduct(productId);
 
-        if(productUpdate.getTitle() != null) {
+        if (productUpdate.getTitle() != null) {
             product.setTitle(productUpdate.getTitle());
         }
-        if(productUpdate.getDescription() != null) {
+        if (productUpdate.getDescription() != null) {
             product.setDescription(productUpdate.getDescription());
         }
-        if(productUpdate.getPrice() != null) {
+        if (productUpdate.getPrice() != null) {
             product.setPrice(productUpdate.getPrice());
         }
-        if(productUpdate.getImageUrl() != null) {
+        if (productUpdate.getImageUrl() != null) {
             product.setImageUrl(productUpdate.getImageUrl());
         }
-        if(productUpdate.getCategory().getTitle() != null) {
+        if (productUpdate.getCategory().getTitle() != null) {
             product.getCategory().setTitle(productUpdate.getCategory().getTitle());
         }
+
+        return product;
+
+    }
+
+    /**
+     * Delete a product with FakeStoreApi
+     *
+     * @param productId Product ID
+     * @return &lt;Product&gt; object
+     */
+    @Override
+    public Product deleteProduct(Long productId) {
+
+        Product product = getSingleProduct(productId);
+        restTemplate.delete(
+                "https://fakestoreapi.com/products/" + productId);
 
         return product;
 
@@ -168,12 +190,14 @@ public class FakeStoreProductService implements ProductService {
      * @return List &lt;Product&gt; object
      */
     private List<Product> createProductListFromArray(FakeStoreProductDto[] products) {
+
         List<Product> listProducts = new ArrayList<>();
-        for(FakeStoreProductDto fakeStoreProduct: products) {
+        for (FakeStoreProductDto fakeStoreProduct : products) {
             listProducts.add(fakeStoreProduct.toProduct());
         }
 
         return listProducts;
+
     }
 
     /**
@@ -183,12 +207,14 @@ public class FakeStoreProductService implements ProductService {
      * @return List &lt;Category&gt; object
      */
     private List<Category> createCategoryListFromArray(String[] categories) {
+
         List<Category> listCategories = new ArrayList<>();
-        for(String category: categories) {
+        for (String category : categories) {
             listCategories.add(new Category(category));
         }
 
         return listCategories;
+
     }
 
 }

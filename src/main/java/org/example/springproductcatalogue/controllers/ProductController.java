@@ -7,6 +7,7 @@ import org.example.springproductcatalogue.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -37,14 +38,13 @@ public class ProductController {
      * {
      * title:, description:, price:, category:,image:
      * }
+     *
      * @param request ProductRequestDto
      * @return Product Object
      */
-    @PostMapping("/products")
+    @PostMapping({"/products","/products/"})
     public Product createProduct(@RequestBody ProductRequestDto request) {
-
         return productService.createProduct(request.toProduct());
-
     }
 
     /**
@@ -53,10 +53,10 @@ public class ProductController {
      * E.g. /products/22
      *
      * @param productId - id of the product - positive long integer
+     * @return Product object
      */
-    @GetMapping("/products/{id}")
+    @GetMapping({"/products/{id}","/products/{id}/"})
     public Product getProductDetails(@PathVariable("id") Long productId) {
-
         return productService.getSingleProduct(productId);
     }
 
@@ -65,9 +65,8 @@ public class ProductController {
      *
      * @return List&lt;Product&gt;
      */
-    @GetMapping({"/products","/products/"})
+    @GetMapping({"/products", "/products/"})
     public ResponseEntity<List<Product>> getAllProducts() {
-
         List<Product> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
@@ -78,20 +77,18 @@ public class ProductController {
      * @param categoryTitle - Title of the category
      * @return List&lt;Product&gt;
      */
-    @GetMapping("/products/category/{categoryTitle}")
+    @GetMapping({"/products/category/{categoryTitle}","/products/category/{categoryTitle}/"})
     public List<Product> getProductsInCategory(@PathVariable("categoryTitle") String categoryTitle) {
-
         return productService.getProductsInCategory(categoryTitle);
     }
 
     /**
      * Controller method to get all categories
      *
-     * @return List&lt;Category&gt;
+     * @return ResponseEntity&lt;List&lt;Category&gt;&gt;
      */
-    @GetMapping({"/products/categories","/products/categories/"})
+    @GetMapping({"/products/categories", "/products/categories/"})
     public ResponseEntity<List<Category>> getAllCategories() {
-
         List<Category> categories = productService.getAllCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
@@ -100,21 +97,23 @@ public class ProductController {
      * Controller method to update details of a product
      *
      * @param productId - id of the product - positive long integer
+     * @param request - @RequestBody
+     * @return Product Object
      */
-    @PutMapping("/products/{id}")
+    @PutMapping({"/products/{id}","/products/{id}/"})
     public Product updateProduct(@PathVariable("id") Long productId, @RequestBody ProductRequestDto request) {
-
-        return productService.updateProduct(productId,request.toProduct());
-
+        return productService.updateProduct(productId, request.toProduct());
     }
 
     /**
      * Controller method to delete a product
      *
      * @param productId - id of the product - positive long integer
+     * @return Product Object
      */
-    public void deleteProduct(Long productId) {
-
+    @DeleteMapping({"/products/{id}","/products/{id}/"})
+    public Product deleteProduct(@PathVariable("id") Long productId) {
+        return productService.deleteProduct(productId);
     }
 
 }

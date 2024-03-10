@@ -31,6 +31,10 @@ public class Category extends BaseModel {
     @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
     private List<Product> products;
 
+    /**
+     * Category construction
+     * @param categoryTitle Title of the category
+     */
     public Category(String categoryTitle) {
        this.title = categoryTitle;
     }

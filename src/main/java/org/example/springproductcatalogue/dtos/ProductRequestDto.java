@@ -21,6 +21,7 @@ public class ProductRequestDto {
 
     /**
      * Map the response - product details with the DTO properties
+     *
      * @return Product object
      */
     public Product toProduct() {

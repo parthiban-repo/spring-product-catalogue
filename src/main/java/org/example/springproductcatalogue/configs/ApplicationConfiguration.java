@@ -10,6 +10,11 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ApplicationConfiguration {
 
+    /**
+     * Create a RestTemplate for the application
+     *
+     * @return RestTemplate
+     */
     @Bean
     public RestTemplate createRestTemplate() {
         return new RestTemplate();

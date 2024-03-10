@@ -22,10 +22,11 @@ public class FakeStoreProductDto {
 
     /**
      * Map the response product details with the DTO properties
+     *
      * @return Product object
      */
     public Product toProduct() {
-      
+
         Product product = new Product();
         product.setId(id);
         product.setTitle(title);

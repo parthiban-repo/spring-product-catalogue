@@ -52,9 +52,17 @@ public interface ProductService {
      * Update a product
      *
      * @param productId Product ID
-     * @param product &lt;Product&gt; object with updated details
+     * @param product   &lt;Product&gt; object with updated details
      * @return &lt;Product&gt; object
      */
     Product updateProduct(Long productId, Product product);
+
+    /**
+     * Delete a product
+     *
+     * @param productId Product ID
+     * @return Product object
+     */
+    Product deleteProduct(Long productId);
 
 }
