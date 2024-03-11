@@ -4,6 +4,7 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface to serve all product related requests

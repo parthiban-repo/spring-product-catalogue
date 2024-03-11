@@ -3,19 +3,19 @@ package org.example.springproductcatalogue.services;
 import org.example.springproductcatalogue.dtos.FakeStoreProductDto;
 import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service 'FakeStoreProductService' implementing ProductService service
  * Serve all API requests on <a href="https://fakestoreapi.com/">...</a>
  */
-@Service
-@Primary // annotating as the primary implementation of ProductService
+@Service("fakeStoreProductService")
+//@Primary // annotating as the primary implementation of ProductService
 public class FakeStoreProductService implements ProductService {
 
     private final RestTemplate restTemplate;

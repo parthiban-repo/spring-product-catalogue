@@ -4,6 +4,7 @@ import org.example.springproductcatalogue.dtos.ProductRequestDto;
 import org.example.springproductcatalogue.models.Product;
 import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class ProductController {
      *
      * @param productService Type:ProductService
      */
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("SelfDBProductService") ProductService productService) {
         this.productService = productService;
     }
 

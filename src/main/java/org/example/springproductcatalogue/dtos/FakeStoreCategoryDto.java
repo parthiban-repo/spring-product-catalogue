@@ -2,7 +2,6 @@ package org.example.springproductcatalogue.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.springproductcatalogue.models.Category;
 
 /**
  * DTO to enable category related data communication between API calls on FakeStoreAPI.com

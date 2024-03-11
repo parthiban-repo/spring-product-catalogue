@@ -24,7 +24,7 @@ public class Product extends BaseModel {
     private Double price;
     private String imageUrl;
     /*
-    define cardinality between Product and Category models.
+    Define cardinality between Product and Category models.
     ManyToOne Many: Product, One: Category
     cascade=CascadeType.PERSIST Creates a category if it does not exist
     */
