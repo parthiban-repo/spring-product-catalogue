@@ -1,6 +1,9 @@
 org.example.springproductcatalogue
+org.example.springproductcatalogue.advices
 org.example.springproductcatalogue.configs
 org.example.springproductcatalogue.controllers
 org.example.springproductcatalogue.dtos
+org.example.springproductcatalogue.exceptions
 org.example.springproductcatalogue.models
+org.example.springproductcatalogue.repositories
 org.example.springproductcatalogue.services
