@@ -1,13 +1,15 @@
 package org.example.springproductcatalogue.services;
 
+import org.example.springproductcatalogue.exceptions.ProductNotFoundException;
 import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interface to serve all product related requests
+ *
+ * @author Parthiban Rajendran
  */
 public interface ProductService {
 
@@ -24,7 +26,7 @@ public interface ProductService {
      * @param productId ID of the product
      * @return List &lt;Product&gt; object
      */
-    Product getSingleProduct(Long productId);
+    Product getSingleProduct(Long productId) throws ProductNotFoundException;
 
     /**
      * Get all products from the datasource
@@ -47,7 +49,7 @@ public interface ProductService {
      * @param product &lt;Product&gt; object
      * @return &lt;Product&gt; object
      */
-    Product createProduct(Product product);
+    Product createProduct(Product product) throws Exception;
 
     /**
      * Update a product
@@ -56,14 +58,14 @@ public interface ProductService {
      * @param product   &lt;Product&gt; object with updated details
      * @return &lt;Product&gt; object
      */
-    Product updateProduct(Long productId, Product product);
+    Product updateProduct(Long productId, Product product) throws ProductNotFoundException, IllegalAccessException;
 
     /**
      * Delete a product
      *
      * @param productId Product ID
-     * @return Product object
+     * @return productId Deleted Product ID
      */
-    Product deleteProduct(Long productId);
+    Long deleteProduct(Long productId) throws ProductNotFoundException;
 
 }

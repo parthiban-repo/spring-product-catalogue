@@ -1,6 +1,7 @@
 package org.example.springproductcatalogue.controllers;
 
 import org.example.springproductcatalogue.dtos.ProductRequestDto;
+import org.example.springproductcatalogue.exceptions.ProductNotFoundException;
 import org.example.springproductcatalogue.models.Product;
 import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.services.ProductService;
@@ -21,7 +22,7 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     /**
      * Constructor
@@ -43,9 +44,10 @@ public class ProductController {
      * @param request ProductRequestDto
      * @return Product Object
      */
-    @PostMapping({"/products","/products/"})
-    public Product createProduct(@RequestBody ProductRequestDto request) {
-        return productService.createProduct(request.toProduct());
+    @PostMapping({"/products", "/products/"})
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequestDto request) throws Exception {
+        Product product = productService.createProduct(request.toProduct());
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     /**
@@ -56,9 +58,10 @@ public class ProductController {
      * @param productId - id of the product - positive long integer
      * @return Product object
      */
-    @GetMapping({"/products/{id}","/products/{id}/"})
-    public Product getProductDetails(@PathVariable("id") Long productId) {
-        return productService.getSingleProduct(productId);
+    @GetMapping({"/products/{id}", "/products/{id}/"})
+    public ResponseEntity<Product> getProductDetails(@PathVariable("id") Long productId) throws ProductNotFoundException {
+        Product product = productService.getSingleProduct(productId);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     /**
@@ -78,9 +81,10 @@ public class ProductController {
      * @param categoryTitle - Title of the category
      * @return List&lt;Product&gt;
      */
-    @GetMapping({"/products/category/{categoryTitle}","/products/category/{categoryTitle}/"})
-    public List<Product> getProductsInCategory(@PathVariable("categoryTitle") String categoryTitle) {
-        return productService.getProductsInCategory(categoryTitle);
+    @GetMapping({"/products/category/{categoryTitle}", "/products/category/{categoryTitle}/"})
+    public ResponseEntity<List<Product>> getProductsInCategory(@PathVariable("categoryTitle") String categoryTitle) {
+        List<Product> productList = productService.getProductsInCategory(categoryTitle);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     /**
@@ -98,23 +102,25 @@ public class ProductController {
      * Controller method to update details of a product
      *
      * @param productId - id of the product - positive long integer
-     * @param request - @RequestBody
+     * @param request   - @RequestBody
      * @return Product Object
      */
-    @PutMapping({"/products/{id}","/products/{id}/"})
-    public Product updateProduct(@PathVariable("id") Long productId, @RequestBody ProductRequestDto request) {
-        return productService.updateProduct(productId, request.toProduct());
+    @PutMapping({"/products/{id}", "/products/{id}/"})
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long productId, @RequestBody ProductRequestDto request) throws ProductNotFoundException, IllegalAccessException {
+        Product product = productService.updateProduct(productId, request.toProduct());
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     /**
      * Controller method to delete a product
      *
      * @param productId - id of the product - positive long integer
-     * @return Product Object
+     * @return Deleted product id
      */
-    @DeleteMapping({"/products/{id}","/products/{id}/"})
-    public Product deleteProduct(@PathVariable("id") Long productId) {
-        return productService.deleteProduct(productId);
+    @DeleteMapping({"/products/{id}", "/products/{id}/"})
+    public ResponseEntity<Long> deleteProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
+        productId = productService.deleteProduct(productId);
+        return new ResponseEntity<>(productId, HttpStatus.OK);
     }
 
 }

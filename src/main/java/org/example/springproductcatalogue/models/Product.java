@@ -1,8 +1,6 @@
 package org.example.springproductcatalogue.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +18,12 @@ import lombok.Setter;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product extends BaseModel {
     private String title;
+    @Lob
+    @Column(length = 512)
     private String description;
     private Double price;
     private String imageUrl;
+    private boolean notInProduction;
     /*
     Define cardinality between Product and Category models.
     ManyToOne Many: Product, One: Category

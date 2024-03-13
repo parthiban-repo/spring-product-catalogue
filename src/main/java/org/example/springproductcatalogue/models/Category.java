@@ -1,16 +1,11 @@
 package org.example.springproductcatalogue.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 /**
@@ -23,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Category extends BaseModel {
+    @Column(unique=true)
     private String title;
     /*
     Define cardinality

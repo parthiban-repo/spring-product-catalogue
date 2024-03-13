@@ -8,11 +8,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service 'FakeStoreProductService' implementing ProductService service
  * Serve all API requests on <a href="https://fakestoreapi.com/">...</a>
+ *
+ * @author Parthiban Rajendran
  */
 @Service("fakeStoreProductService")
 //@Primary // annotating as the primary implementation of ProductService
@@ -133,10 +134,6 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public Product updateProduct(Long productId, Product productUpdate) {
 
-        restTemplate.put(
-                "https://fakestoreapi.com/products/" + productId,
-                productUpdate);
-
         /*
         ** Mimicking update output **
         Get the product, update the properties and return it because FakeStoreAPI
@@ -160,6 +157,10 @@ public class FakeStoreProductService implements ProductService {
             product.getCategory().setTitle(productUpdate.getCategory().getTitle());
         }
 
+        restTemplate.put(
+                "https://fakestoreapi.com/products/" + productId,
+                product);
+
         return product;
 
     }
@@ -168,16 +169,18 @@ public class FakeStoreProductService implements ProductService {
      * Delete a product with FakeStoreApi
      *
      * @param productId Product ID
-     * @return &lt;Product&gt; object
+     * @return Long Deleted Product ID
      */
     @Override
-    public Product deleteProduct(Long productId) {
+    public Long deleteProduct(Long productId) {
 
-        Product product = getSingleProduct(productId);
+        /*
+        Note: In real, FakeStoreAPI does not delete any product from its database
+         */
         restTemplate.delete(
                 "https://fakestoreapi.com/products/" + productId);
 
-        return product;
+        return productId;
 
     }
 
