@@ -1,6 +1,7 @@
 package org.example.springproductcatalogue.services;
 
 import org.example.springproductcatalogue.dtos.FakeStoreProductDto;
+import org.example.springproductcatalogue.exceptions.ProductNotFoundException;
 import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 import org.springframework.stereotype.Service;
@@ -182,6 +183,11 @@ public class FakeStoreProductService implements ProductService {
 
         return productId;
 
+    }
+
+    @Override
+    public List<Product> getProductsLikeTitle(String productTitle) throws ProductNotFoundException {
+        return null;
     }
 
     //**** Utility methods ****//

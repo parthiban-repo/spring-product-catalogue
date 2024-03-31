@@ -65,12 +65,26 @@ public class ProductController {
     }
 
     /**
+     * Controller method to get all products with title
+     * GET /products/{title}
+     * E.g. /products/watch
+     *
+     * @param title - title of the products
+     * @return ResponseEntity&lt;List&lt;Product&gt;&gt;
+     */
+    @GetMapping({"/products-list/{title}", "/products-list/{title}/"})
+    public ResponseEntity<List<Product>> getProductLikeTitle(@PathVariable("title") String title) throws ProductNotFoundException {
+        List<Product>  products = productService.getProductsLikeTitle(title);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    /**
      * Controller method to get all products
      *
      * @return List&lt;Product&gt;
      */
     @GetMapping({"/products", "/products/"})
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<Product>> getAllProducts() throws Exception{
         List<Product> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
@@ -82,7 +96,7 @@ public class ProductController {
      * @return List&lt;Product&gt;
      */
     @GetMapping({"/products/category/{categoryTitle}", "/products/category/{categoryTitle}/"})
-    public ResponseEntity<List<Product>> getProductsInCategory(@PathVariable("categoryTitle") String categoryTitle) {
+    public ResponseEntity<List<Product>> getProductsInCategory(@PathVariable("categoryTitle") String categoryTitle) throws ProductNotFoundException {
         List<Product> productList = productService.getProductsInCategory(categoryTitle);
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }

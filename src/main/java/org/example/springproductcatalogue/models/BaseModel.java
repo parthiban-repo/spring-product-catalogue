@@ -22,9 +22,12 @@ public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    /* @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;*/
     @CreationTimestamp
     private Date createdOn;
     @UpdateTimestamp
     private Date lastUpdatedOn;
     private boolean isDeleted;
+
 }

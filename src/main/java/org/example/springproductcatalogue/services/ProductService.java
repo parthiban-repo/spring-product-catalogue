@@ -68,4 +68,11 @@ public interface ProductService {
      */
     Long deleteProduct(Long productId) throws ProductNotFoundException;
 
+    /**
+     * Get products with title
+     *
+     * @param productTitle Title of the product
+     * @return List &lt;Product&gt; object
+     */
+    public List<Product> getProductsLikeTitle(String productTitle) throws ProductNotFoundException;
 }

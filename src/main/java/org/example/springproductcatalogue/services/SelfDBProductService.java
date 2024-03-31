@@ -18,6 +18,7 @@ import java.util.Optional;
  * @author Parthiban Rajendran
  */
 @Service("SelfDBProductService")
+//@Primary // annotating as the primary implementation of ProductService
 public class SelfDBProductService implements ProductService {
 
     private final ProductRepository productRepository;
@@ -160,4 +161,16 @@ public class SelfDBProductService implements ProductService {
 
         return productId;
     }
+
+    /**
+     * Get products with title
+     *
+     * @param productTitle Title of the product
+     * @return List &lt;Product&gt; object
+     */
+    @Override
+    public List<Product> getProductsLikeTitle(String productTitle) {
+        return productRepository.getProductsLikeName(productTitle);
+    }
+
 }
