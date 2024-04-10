@@ -4,15 +4,23 @@ import org.example.springproductcatalogue.dtos.FakeStoreProductDto;
 import org.example.springproductcatalogue.exceptions.ProductNotFoundException;
 import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Service 'FakeStoreProductService' implementing ProductService service
- * Serve all API requests on <a href="https://fakestoreapi.com/">...</a>
+ * Service implementation for interacting with products from the FakeStoreAPI.
+ * This service retrieves, creates, updates, and deletes products using the FakeStoreAPI endpoints.
+ *
+ * <p>
+ *     This service communicates with the FakeStoreAPI to perform various operations
+ *     such as retrieving all products, getting products by category, creating new products,
+ *     updating existing products, and deleting products.
+ * </p>
  *
  * @author Parthiban Rajendran
  */
@@ -23,17 +31,20 @@ public class FakeStoreProductService implements ProductService {
     private final RestTemplate restTemplate;
 
     /**
-     * FakeStoreProductService Constructor taking RestTemplate argument
-     * @param restTemplate RestTemplate
+     * Constructs a new FakeStoreProductService with the given RestTemplate.
+     *
+     * @param restTemplate The RestTemplate instance used to make HTTP requests.
      */
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
+    //****** Implementation of ProductService methods ******//
+
     /**
-     * Get all product categories from FakeStoreAPI
+     * Retrieves all product categories.
      *
-     * @return List &lt;Category&gt; object
+     * @return A list of Category objects representing all available product categories.
      */
     @Override
     public List<Category> getAllCategories() {
@@ -48,10 +59,10 @@ public class FakeStoreProductService implements ProductService {
     }
 
     /**
-     * Get details of a single product with given productId from FakeStoreAPI
+     * Retrieves details of a single product by its ID.
      *
-     * @param productId ID of the product - Long positive integer
-     * @return Product object
+     * @param productId The ID of the product to retrieve.
+     * @return The Product object corresponding to the specified ID.
      */
     @Override
     public Product getSingleProduct(Long productId) {
@@ -65,9 +76,9 @@ public class FakeStoreProductService implements ProductService {
     }
 
     /**
-     * Get all products from FakeStoreAPI
+     * Retrieves all products.
      *
-     * @return List &lt;Product&gt; object
+     * @return A list of all Product objects.
      */
     @Override
     public List<Product> getAllProducts() {
@@ -83,10 +94,10 @@ public class FakeStoreProductService implements ProductService {
     }
 
     /**
-     * Get products in a specific category from FakeStoreAPI
+     * Retrieves products belonging to a specific category.
      *
-     * @param categoryTitle Title of the category
-     * @return List &lt;Product&gt; object
+     * @param categoryTitle The title of the category.
+     * @return A list of Product objects belonging to the specified category.
      */
     @Override
     public List<Product> getProductsInCategory(String categoryTitle) {
@@ -101,10 +112,10 @@ public class FakeStoreProductService implements ProductService {
     }
 
     /**
-     * Create a new product with FakeStoreAPI
+     * Creates a new product.
      *
-     * @param product &lt;Product&gt; object
-     * @return &lt;Product&gt; object
+     * @param product The Product object representing the new product.
+     * @return The created Product object.
      */
     @Override
     public Product createProduct(Product product) {
@@ -127,10 +138,11 @@ public class FakeStoreProductService implements ProductService {
     }
 
     /**
-     * Update a product with FakeStoreApi
+     * Updates an existing product.
      *
-     * @param productId Product ID
-     * @return &lt;Product&gt; object
+     * @param productId The ID of the product to update.
+     * @param productUpdate   The Product object containing the updated details.
+     * @return The updated Product object.
      */
     @Override
     public Product updateProduct(Long productId, Product productUpdate) {
@@ -167,10 +179,10 @@ public class FakeStoreProductService implements ProductService {
     }
 
     /**
-     * Delete a product with FakeStoreApi
+     * Deletes a product by its ID.
      *
-     * @param productId Product ID
-     * @return Long Deleted Product ID
+     * @param productId The ID of the product to delete.
+     * @return The ID of the deleted product.
      */
     @Override
     public Long deleteProduct(Long productId) {
@@ -185,8 +197,29 @@ public class FakeStoreProductService implements ProductService {
 
     }
 
+    /**
+     * Retrieves products with titles containing the specified keyword.
+     *
+     * @param productTitle The keyword to search for in product titles.
+     * @return A list of Product objects matching the search criteria.
+     * @throws ProductNotFoundException If no products matching the search criteria are found.
+     */
     @Override
     public List<Product> getProductsLikeTitle(String productTitle) throws ProductNotFoundException {
+        return null;
+    }
+
+    /**
+     * Retrieves a page of products with pagination and optional sorting.
+     *
+     * @param pageSize       The number of products per page.
+     * @param pageNumber     The page number to retrieve.
+     * @param sortColumn     (Optional) The column to sort the results by.
+     * @param sortDirection  (Optional) The direction of sorting (ascending or descending).
+     * @return A Page object containing the requested products.
+     */
+    @Override
+    public Page<Product> getProducts(int pageSize, int pageNumber, Optional<String> sortColumn, Optional<String> sortDirection) {
         return null;
     }
 
@@ -225,5 +258,4 @@ public class FakeStoreProductService implements ProductService {
         return listCategories;
 
     }
-
 }

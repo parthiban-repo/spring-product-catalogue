@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DTO to enable category related data communication between API calls on FakeStoreAPI.com
+ * DTO class: Represents category-related data communication between API calls to FakeStoreAPI.com.
+ *
+ * <p>This DTO class is used to facilitate communication of category-related data between API calls
+ * made to the FakeStoreAPI.com service. It encapsulates category ID and title information.</p>
  */
 @Getter
 @Setter

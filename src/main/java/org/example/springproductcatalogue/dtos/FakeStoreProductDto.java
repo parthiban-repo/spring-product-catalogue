@@ -6,7 +6,12 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 /**
- * DTO to enable product related data communication between API calls on FakeStoreAPI.com
+ * DTO class: Represents product-related data communication between API calls to FakeStoreAPI.com.
+ *
+ * <p>This DTO class is used to facilitate communication of product-related data between API calls
+ * made to the FakeStoreAPI.com service. It encapsulates product ID, title, description, category, price,
+ * and image information.</p>
+ *
  */
 @Getter
 @Setter
@@ -21,9 +26,12 @@ public class FakeStoreProductDto {
     private String image;
 
     /**
-     * Map the response product details with the DTO properties
+     * Converts the response product details to a Product object.
      *
-     * @return Product object
+     * <p>This method creates a new Product object and sets its attributes using the values from
+     * the corresponding fields in the DTO instance. It then returns the created Product object.</p>
+     *
+     * @return The Product object representing the mapped product details.
      */
     public Product toProduct() {
 

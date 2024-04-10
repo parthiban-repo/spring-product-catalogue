@@ -7,16 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * Controller Advice to handle exceptions
+ * Controller Advice to handle exceptions globally in the application.
+ * This advice provides centralized exception handling for controllers.
+ * It catches specific exceptions and returns appropriate error responses.
  */
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
 
     /**
-     * Controller Advice method to handle ProductNotFoundException
+     * Exception handler method to handle ProductNotFoundException.
+     * This method handles ProductNotFoundException and returns a ResponseEntity
+     * with an appropriate HTTP status code and error message.
      *
-     * @param exception ProductNotFoundException
-     * @return ResponseEntity
+     * @param exception ProductNotFoundException that occurred.
+     * @return ResponseEntity containing an ErrorDto with the error message.
      */
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorDto> handleProductNotFoundException(ProductNotFoundException exception) {
@@ -29,10 +33,13 @@ public class ControllerAdvice {
     }
 
     /**
-     * Controller Advice method to handle all exceptions
+     * Exception handler method to handle all other exceptions.
+     * This method handles any other exception that occurs within controllers.
+     * It returns a ResponseEntity with an appropriate HTTP status code
+     * and error message for generic exceptions.
      *
-     * @param exception Exception
-     * @return ResponseEntity
+     * @param exception Exception that occurred.
+     * @return ResponseEntity containing an ErrorDto with the error message.
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception exception) {

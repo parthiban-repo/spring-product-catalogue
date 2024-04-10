@@ -6,18 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Model 'Category'
- * Class to handle category attributes and related methods
+ * Model class: Represents a category of products.
+ *
+ * <p>The Category class defines the attributes and relationships of a product category. Each category
+ * has a unique title and may contain multiple products associated with it.</p>
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Category extends BaseModel {
+public class Category extends BaseModel implements Serializable{
     @Column(unique=true)
     private String title;
     /*
@@ -32,8 +36,9 @@ public class Category extends BaseModel {
     private List<Product> products;
 
     /**
-     * Category construction
-     * @param categoryTitle Title of the category
+     * Constructs a new Category instance with the specified title.
+     *
+     * @param categoryTitle The title of the category.
      */
     public Category(String categoryTitle) {
        this.title = categoryTitle;

@@ -6,7 +6,11 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 
 /**
- * DTO to handle Create Product POST/PUT/PATCH request data communications between API calls
+ * DTO class: Handles Create Product POST/PUT/PATCH request data communications between API calls.
+ *
+ * <p>This DTO class is used to facilitate communication of product creation/update request data between
+ * API calls. It encapsulates product attributes such as ID, title, description, price, image, and category.</p>
+ *
  */
 @Getter
 @Setter
@@ -20,9 +24,12 @@ public class ProductRequestDto {
     private String category;
 
     /**
-     * Map the response - product details with the DTO properties
+     * Converts the request data to a Product object.
      *
-     * @return Product object
+     * <p>This method creates a new Product object and initializes its attributes using the
+     * data from the corresponding fields in the DTO instance. It then returns the created Product object.</p>
+     *
+     * @return The Product object representing the mapped product details.
      */
     public Product toProduct() {
 

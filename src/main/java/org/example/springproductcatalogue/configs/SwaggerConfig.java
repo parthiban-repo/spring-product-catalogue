@@ -1,3 +1,6 @@
+/***** THIS IS WORK IN PROGRESS. PLEASE IGNORE *****/
+
+/*
 package org.example.springproductcatalogue.configs;
 
 import org.springframework.context.annotation.Bean;
@@ -9,10 +12,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 import springfox.documentation.spring.web.plugins.Docket;
 
-@Configuration
+//@Configuration
 @Import(SpringDataRestConfiguration.class)
 public class SwaggerConfig {
-    @Bean
+    //@Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
@@ -21,4 +24,4 @@ public class SwaggerConfig {
                 .build();
     }
 
-}
+}*/

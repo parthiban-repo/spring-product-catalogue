@@ -8,26 +8,29 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * ProductRepository interface to manage data operations on the data models
+ * Repository interface: Manages data operations for products.
+ *
+ * <p>The ProductRepository interface extends JpaRepository to provide CRUD operations for Product entities.
+ * It also includes additional custom query methods for specific data retrieval.</p>
  */
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
     // *** Define custom methods *** //
 
     /**
-     * Get products with title
+     * Retrieves products with titles containing the specified keyword.
      *
-     * @param productTitle Title of the product
-     * @return List &lt;Product&gt; object
+     * @param productTitle The keyword to search for in product titles.
+     * @return A list of Product objects matching the search criteria.
      */
     @Query("select p from Product p where p.title like %:productTitle%")
     List<Product> getProductsLikeName(@Param("productTitle") String productTitle);
 
     /**
-     * Find all products by category title
+     * Retrieves all products belonging to a category with the specified title.
      *
-     * @param categoryTitle Title of the category
-     * @return List of Product objects
+     * @param categoryTitle The title of the category.
+     * @return A list of Product objects belonging to the specified category.
      */
     List<Product> findAllByCategoryTitle(String categoryTitle);
 

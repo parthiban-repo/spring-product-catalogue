@@ -5,6 +5,10 @@ import org.example.springproductcatalogue.models.Category;
 import org.example.springproductcatalogue.models.Product;
 import org.example.springproductcatalogue.repositories.CategoryRepository;
 import org.example.springproductcatalogue.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -12,8 +16,15 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service 'SelfDBProductService' implementing 'ProductService' service
- * Serve all API requests on own database connected to this application
+ * Service implementation for handling product-related requests using the application's own database.
+ * This service interacts with the application's database to perform CRUD operations on products and categories.
+ *
+ * <p>
+*     This service class is responsible for handling various API requests related to products
+*     and categories by utilizing the application's own database. It serves as an interface between
+*     the controller layer and the database layer, providing methods to retrieve, create, update,
+*     and delete products and categories.
+ * </p>
  *
  * @author Parthiban Rajendran
  */
@@ -24,15 +35,23 @@ public class SelfDBProductService implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
+    /**
+     * Constructs a new SelfDBProductService with the specified repositories.
+     *
+     * @param productRepo The ProductRepository instance used to access product data.
+     * @param categoryRepo The CategoryRepository instance used to access category data.
+     */
     public SelfDBProductService(ProductRepository productRepo, CategoryRepository categoryRepo) {
         this.productRepository = productRepo;
         this.categoryRepository = categoryRepo;
     }
 
+    //****** Implementation of ProductService methods ******//
+
     /**
-     * Get all product categories
+     * Retrieves all product categories.
      *
-     * @return List &lt;Category&gt; object
+     * @return A list of Category objects representing all available product categories.
      */
     @Override
     public List<Category> getAllCategories() {
@@ -40,10 +59,11 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Get details of a single product with given productId
+     * Retrieves details of a single product by its ID.
      *
-     * @param productId - id of the product - Long positive integer
-     * @return Product object
+     * @param productId The ID of the product to retrieve.
+     * @return The Product object corresponding to the specified ID.
+     * @throws ProductNotFoundException If the product with the given ID does not exist.
      */
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException {
@@ -58,9 +78,9 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Get all products from the datasource
+     * Retrieves all products.
      *
-     * @return List &lt;Product&gt; object
+     * @return A list of all Product objects.
      */
     @Override
     public List<Product> getAllProducts() {
@@ -68,10 +88,10 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Get products in a specific category
+     * Retrieves products belonging to a specific category.
      *
-     * @param categoryTitle Title of the category
-     * @return List &lt;Product&gt; object
+     * @param categoryTitle The title of the category.
+     * @return A list of Product objects belonging to the specified category.
      */
     @Override
     public List<Product> getProductsInCategory(String categoryTitle) {
@@ -79,10 +99,11 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Create a new product
+     * Creates a new product.
      *
-     * @param product &lt;Product&gt; object
-     * @return &lt;Product&gt; object
+     * @param product The Product object representing the new product.
+     * @return The created Product object.
+     * @throws Exception If an error occurs during product creation.
      */
     @Override
     public Product createProduct(Product product) throws Exception {
@@ -102,11 +123,13 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Update a product
+     * Updates an existing product.
      *
-     * @param productId Product ID
-     * @param product   &lt;Product&gt; object
-     * @return &lt;Product&gt; object
+     * @param productId The ID of the product to update.
+     * @param product   The Product object containing the updated details.
+     * @return The updated Product object.
+     * @throws ProductNotFoundException If the product with the given ID does not exist.
+     * @throws IllegalAccessException  If the user does not have permission to update the product.
      */
     @Override
     public Product updateProduct(Long productId, Product product) throws ProductNotFoundException, IllegalAccessException {
@@ -145,10 +168,11 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Delete a product
+     * Deletes a product by its ID.
      *
-     * @param productId Product ID
-     * @return productId Deleted Product ID
+     * @param productId The ID of the product to delete.
+     * @return The ID of the deleted product.
+     * @throws ProductNotFoundException If the product with the given ID does not exist.
      */
     @Override
     public Long deleteProduct(Long productId) throws ProductNotFoundException {
@@ -163,14 +187,41 @@ public class SelfDBProductService implements ProductService {
     }
 
     /**
-     * Get products with title
+     * Retrieves products with titles containing the specified keyword.
      *
-     * @param productTitle Title of the product
-     * @return List &lt;Product&gt; object
+     * @param productTitle The keyword to search for in product titles.
+     * @return A list of Product objects matching the search criteria.
      */
     @Override
     public List<Product> getProductsLikeTitle(String productTitle) {
         return productRepository.getProductsLikeName(productTitle);
+    }
+
+    /**
+     * Retrieves a page of products with pagination and optional sorting.
+     *
+     * @param pageSize       The number of products per page.
+     * @param pageNumber     The page number to retrieve.
+     * @param sortColumn     (Optional) The column to sort the results by.
+     * @param sortDirection  (Optional) The direction of sorting (ascending or descending).
+     * @return A Page object containing the requested products.
+     */
+    @Override
+    public Page<Product> getProducts(int pageSize, int pageNumber,
+                                     Optional<String> sortColumn,
+                                     Optional<String> sortDirection) {
+        Pageable pageable;
+
+        if (sortColumn.isPresent()) {
+            // If sorDirection is present, check and return desc or asc
+            Sort.Direction direction = sortDirection.map(s -> s.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC)
+                    .orElse(Sort.Direction.ASC);
+            pageable = PageRequest.of(pageNumber, pageSize, direction, sortColumn.get());
+        } else {
+            pageable = PageRequest.of(pageNumber, pageSize);
+        }
+
+        return productRepository.findAll(pageable);
     }
 
 }
