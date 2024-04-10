@@ -1,4 +1,4 @@
-# Microservices-based Ecommerce Platform built on Spring Boot and RESTful APIs
+# Microservices-based Ecommerce Core Functionalities built on SpringBoot and RESTful APIs
 
 This is a sample project built on Spring Boot, following a microservices architecture and employing RESTful APIs for seamless communication between services. It encompasses core ecommerce functionalities, including product catalog management with CRUD operations and seamless payment processing integration via the Razorpay Payment Gateway.
 
