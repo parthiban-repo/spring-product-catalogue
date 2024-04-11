@@ -24,10 +24,10 @@ This is a sample project built on Spring Boot, following a microservices archite
 ### Caching with Redis Cache
 
 Implemented Redis cache for the following API services:
-    - Create a product
-    - Get product details
-    - Update a product
-    - Delete a product
+- Create a product
+- Get product details
+- Update a product
+- Delete a product
 
 ## Frameworks & Tools Used
 
