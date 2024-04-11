@@ -7,7 +7,15 @@ This is a sample project built on Spring Boot, following a microservices archite
 ### Product Catalog Services:
 
 - CRUD operations for managing products.
-- Product listing with details such as name, description, price, and availability.
+    - Create a new product
+    - List all products with details
+    - Get single product details
+    - List all categories
+    - List all products in specific category
+    - Get all products with matching title keywords
+    - Pagination: Get products by page size and page number with optional columns sorting
+    - Update product details
+    - Delete a product
 
 ### Payment Gateway Integration:
 
