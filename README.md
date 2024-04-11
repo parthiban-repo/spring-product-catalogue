@@ -4,7 +4,7 @@ This is a sample project built on Spring Boot, following a microservices archite
 
 ## Features
 
-### Product Catalog Services:
+### Product Catalog Services
 
 - CRUD operations for managing products.
     - Create a new product
@@ -17,9 +17,17 @@ This is a sample project built on Spring Boot, following a microservices archite
     - Update product details
     - Delete a product
 
-### Payment Gateway Integration:
+### Payment Gateway Integration
 
 - Integration with Razorpay Payment Gateway for secure and seamless transactions.
+
+### Caching with Redis Cache
+
+Implemented Redis cache for the following API services:
+    - Create a product
+    - Get product details
+    - Update a product
+    - Delete a product
 
 ## Frameworks & Tools Used
 
