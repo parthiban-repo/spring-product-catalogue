@@ -25,7 +25,7 @@ This is a sample project built on Spring Boot, following a microservices archite
 
 Implemented Redis cache for the following API services:
 - Create a product
-- Get product details
+- Get single product details
 - Update a product
 - Delete a product
 
