@@ -13,7 +13,7 @@ This is a sample project built on Spring Boot, following a microservices archite
     - List all categories
     - List all products in specific category
     - Get all products with matching title keywords
-    - Pagination: Get products by page size and page number with optional columns sorting
+    - Pagination: Get products by page size and page number with optional column sorting
     - Update product details
     - Delete a product
 
